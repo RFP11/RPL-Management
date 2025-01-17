@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\UserTypeResource\Pages;
-use App\Filament\Resources\UserTypeResource\RelationManagers;
+use App\Filament\Admin\Resources\UserTypeResource\Pages;
+use App\Filament\Admin\Resources\UserTypeResource\RelationManagers;
 use App\Models\UserType;
 use Filament\Forms;
 use Filament\Forms\Form;

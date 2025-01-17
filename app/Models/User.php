@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
 use App\Models\Book;
 use App\Models\Task;
 use App\Models\Salary;
@@ -11,13 +12,24 @@ use App\Models\Overtime;
 use App\Models\SaveBook;
 use App\Models\UserType;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+
+    public function canAccessPanel(Panel $panel):bool{
+        return match($panel->getId()){
+            default => true,
+            'admin' => $this->user_type->name === 'Admin',
+            'user' => $this->user_type->name === 'Student' || $this->user_type->name === 'Admin',
+            'worker' => $this->user_type->name === 'Worker' || $this->user_type->name === 'Admin',
+        };
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +40,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_type_id'
+        'user_type_id',
     ];
 
     /**
