@@ -140,4 +140,10 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(SaveBook::class, 'user_id', 'id');
     }
+
+    protected static function booted(): void {
+        static::creating(function (User $user){
+            $user->user_type_id = 1;
+        });
+    }
 }

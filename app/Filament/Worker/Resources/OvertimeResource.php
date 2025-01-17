@@ -2,25 +2,24 @@
 
 namespace App\Filament\Worker\Resources;
 
+use App\Filament\Worker\Resources\OvertimeResource\Pages;
+use App\Filament\Worker\Resources\OvertimeResource\RelationManagers;
+use App\Models\Overtime;
 use Filament\Forms;
-use Filament\Tables;
-use App\Models\Salary;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Facades\Filament;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Worker\Resources\SalaryResource\Pages;
-use App\Filament\Worker\Resources\SalaryResource\RelationManagers;
 
-class SalaryResource extends Resource
+class OvertimeResource extends Resource
 {
-    protected static ?string $model = Salary::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-credit-card';
+    protected static ?string $model = Overtime::class;
 
     protected static ?string $navigationGroup = 'Income';
+
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     public static function getEloquentQuery(): Builder
     {
@@ -35,12 +34,6 @@ class SalaryResource extends Resource
         return $form
             ->schema([
                 //
-                Forms\Components\TextInput::make('amount')
-                ->required(),
-                Forms\Components\TextInput::make('user_id')
-                ->required()
-                ->readOnly()
-                ->default(Filament::auth()->id()),
             ]);
     }
 
@@ -49,17 +42,12 @@ class SalaryResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make('amount'),
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('updated_at'),
-                Tables\Columns\TextColumn::make('created_at'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -78,9 +66,9 @@ class SalaryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSalaries::route('/'),
-            'create' => Pages\CreateSalary::route('/create'),
-            'edit' => Pages\EditSalary::route('/{record}/edit'),
+            'index' => Pages\ListOvertimes::route('/'),
+            'create' => Pages\CreateOvertime::route('/create'),
+            'edit' => Pages\EditOvertime::route('/{record}/edit'),
         ];
     }
 }
