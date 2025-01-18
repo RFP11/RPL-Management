@@ -11,7 +11,10 @@ use App\Models\Subject;
 use App\Models\Overtime;
 use App\Models\SaveBook;
 use App\Models\UserType;
+use Illuminate\Support\Str;
 use Filament\Facades\Filament;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -144,10 +147,13 @@ class User extends Authenticatable implements FilamentUser
 
     protected static function booted(): void {
         static::creating(function (User $user){
-            $user->user_type_id = match(Filament::getCurrentPanel()->getId()){
-                'worker' => UserType::where('name', 'Worker')->value('id'),
-                'student' => UserType::where('name', 'Student')->value('id')
-            };
+
+            if(Filament::getCurrentPanel()->getId() !== 'admin'){
+                $user->user_type_id = match(Filament::getCurrentPanel()->getId()){
+                    'worker' => UserType::where('name', 'Worker')->value('id'),
+                    'student' => UserType::where('name', 'Student')->value('id')
+                };
+            }
         });
     }
 }
