@@ -32,13 +32,17 @@ class SubjectResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $userid = Filament::auth()->id();
         return $form
             ->schema([
                 //
+                Forms\Components\textInput::make('subject_code'),
                 Forms\Components\TextInput::make('name')
                 ->required(),
                 Forms\Components\TextInput::make('lecturer')
                 ->required(),
+                Forms\Components\textInput::make('location')
+                ->datalist(Subject::where('user_id', $userid)->pluck('location')),
             ]);
     }
 
@@ -47,8 +51,10 @@ class SubjectResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\TextColumn::make('subject_code'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('lecturer'),
+                Tables\Columns\TextColumn::make('location'),
             ])
             ->filters([
                 //

@@ -5,6 +5,7 @@ namespace App\Filament\Student\Resources;
 use Filament\Forms;
 use App\Models\Task;
 use Filament\Tables;
+use App\Models\Status;
 use App\Models\Subject;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -33,6 +34,7 @@ class TaskResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $userid = Filament::auth()->id();
         return $form
             ->schema([
                 //
@@ -41,9 +43,12 @@ class TaskResource extends Resource
                 Forms\Components\TextArea::make('description')
                 ->required(),
                 Forms\Components\Select::make('subject_id')
-                ->options(Subject::all()->pluck('name', 'id')),
+                ->options(Subject::where('user_id', $userid)->pluck('name', 'id')),
                 Forms\Components\DateTimePicker::make('deadline')
                 ->seconds(false),
+                Forms\Components\Select::make('status_id')
+                ->required()
+                ->options(Status::where('name', 'regexp', '^(Task-)(\w+)')->pluck('name', 'id')),
             ]);
     }
 
