@@ -27,7 +27,7 @@ class User extends Authenticatable implements FilamentUser
         return match($panel->getId()){
             default => true,
             'admin' => $this->user_type->name === 'Admin',
-            'user' => $this->user_type->name === 'Student' || $this->user_type->name === 'Admin',
+            'student' => $this->user_type->name === 'Student' || $this->user_type->name === 'Admin',
             'worker' => $this->user_type->name === 'Worker' || $this->user_type->name === 'Admin',
         };
     }
@@ -146,7 +146,7 @@ class User extends Authenticatable implements FilamentUser
         static::creating(function (User $user){
             $user->user_type_id = match(Filament::getCurrentPanel()->getId()){
                 'worker' => UserType::where('name', 'Worker')->value('id'),
-                'user' => UserType::where('name', 'Student')->value('id')
+                'student' => UserType::where('name', 'Student')->value('id')
             };
         });
     }
