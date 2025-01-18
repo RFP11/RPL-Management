@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Status;
 use App\Models\Subject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,8 @@ class Task extends Model
         'description', 
         'deadline', 
         'user_id',
-        'subject_id'
+        'subject_id',
+        'status_id',
     ];
 
 
@@ -39,5 +41,15 @@ class Task extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
+
+    /**
+     * Get the status that owns the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 }
