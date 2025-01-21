@@ -36,12 +36,12 @@ class SubjectResource extends Resource
         return $form
             ->schema([
                 //
-                Forms\Components\textInput::make('subject_code'),
+                Forms\Components\TextInput::make('subject_code'),
                 Forms\Components\TextInput::make('name')
                 ->required(),
                 Forms\Components\TextInput::make('lecturer')
                 ->required(),
-                Forms\Components\textInput::make('location')
+                Forms\Components\TextInput::make('location')
                 ->datalist(Subject::where('user_id', $userid)->pluck('location')),
             ]);
     }

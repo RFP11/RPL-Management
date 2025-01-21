@@ -40,9 +40,10 @@ class TaskResource extends Resource
                 //
                 Forms\Components\TextInput::make('name')
                 ->required(),
-                Forms\Components\TextArea::make('description')
+                Forms\Components\Textarea::make('description')
                 ->required(),
                 Forms\Components\Select::make('subject_id')
+                ->required()
                 ->options(Subject::where('user_id', $userid)->pluck('name', 'id')),
                 Forms\Components\DateTimePicker::make('deadline')
                 ->seconds(false),
