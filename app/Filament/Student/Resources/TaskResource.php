@@ -46,7 +46,8 @@ class TaskResource extends Resource
                 ->required()
                 ->options(Subject::where('user_id', $userid)->pluck('name', 'id')),
                 Forms\Components\DateTimePicker::make('deadline')
-                ->seconds(false),
+                ->seconds(false)
+                ->default(now()->endOfDay()),
                 Forms\Components\Select::make('status_id')
                 ->required()
                 ->options(Status::where('name', 'regexp', '^(Task-)(\w+)')->pluck('name', 'id')),
