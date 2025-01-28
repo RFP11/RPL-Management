@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('filename');
-            $table->enum('filetype', ['pdf', 'epub'])->default('pdf');
+            $table->enum('filetype', ['pdf', 'epub','pptx','docx'])->default('pdf');
             $table->unsignedBigInteger('user_id');
+            $table->enum('category',['books','journal','thesis','learning_material']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -15,7 +15,8 @@ class Book extends Model
     protected $fillable = [
         'title', 
         'filename', 
-        'filetype', 
+        'filetype',
+        'category',
         'user_id'
     ];
 
