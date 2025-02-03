@@ -59,6 +59,6 @@ class StudentPanelProvider extends PanelProvider
                 FilamentFullCalendarPlugin::make()
                     ->selectable()
                     ->plugins(['dayGrid', 'timeGrid', 'list'], true)
-            );;
+            );
     }
 }
