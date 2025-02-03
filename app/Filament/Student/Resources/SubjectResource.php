@@ -10,9 +10,7 @@ use Filament\Tables\Table;
 use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Student\Resources\SubjectResource\Pages;
-use App\Filament\Student\Resources\SubjectResource\RelationManagers;
 
 class SubjectResource extends Resource
 {
