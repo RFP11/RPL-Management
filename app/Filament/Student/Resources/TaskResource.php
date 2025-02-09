@@ -63,6 +63,7 @@ class TaskResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('subject_id'),
+                Tables\Columns\TextColumn::make('status_id'),
                 Tables\Columns\TextColumn::make('deadline'),
             ])
             ->filters([
